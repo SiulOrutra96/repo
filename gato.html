@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>LASGato</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #ganador{
+                position: absolute;
+                display: none;              
+                text-align:center;
+                font-family: Franklin Gothic Book;
+                font-size: 80px;
+            }
+            table{
+                position: absolute;
+                top: 20%;
+                left: 37%;
+            }
+            td{
+                border: thick solid black;
+                font-size: 100px;
+                height: 110px;
+                width: 110px;
+                padding: 0px;
+                font-family: Berlin Sans FB;
+                text-align: center;
+            }
+            #c1, #c4, #c7{
+                border-left: none
+            }
+            #c3, #c6, #c9{
+                border-right: none
+            }
+            #c1, #c2, #c3{
+                border-top: none
+            }
+            #c7, #c8, #c9{
+                border-bottom: none
+            }
+            button{
+                position: absolute;
+                top: 80%;
+                left: 45.8%;
+                text-decoration: none;
+                padding: 10px;
+                font-weight: 600;
+                font-size: 20px;
+                color: #ffffff;
+                background-color: #7FBB18;
+                border-radius: 5px;
+                border: 2px solid;
+            }
+            #derechos{
+                position: absolute;
+                bottom: 0px;
+                left: 41%;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ganador"><b>Gana el Jugador 1</b></div>
+        <div id="derechos">
+            <font size="3">Copy Right &copy; 2016 All Rights Reserved</font><br/>
+            <font size="2">Pagina Creada y Diseñada por LASware</font>
+        </div>
+        <table id="gato" cellspacing="0">
+            <tr>
+                <td id="c1"></td>
+                <td id="c2"></td>
+                <td id="c3"></td>
+            </tr>
+            <tr>
+                <td id="c4"></td>
+                <td id="c5"></td>
+                <td id="c6"></td>
+            </tr>
+            <tr>
+                <td id="c7"></td>
+                <td id="c8"></td>
+                <td id="c9"></td>
+            </tr>
+        </table>
+        <button onclick="reiniciar()" id="btn">Reiniciar</button>
+        <script language="javascript">
+            var celda = document.getElementsByTagName("td");
+            var cont = 0;
+            var fin = false;
+            var mensaje= document.getElementById("ganador");
+            var boton = document.getElementById("btn");
+            var hack1 = false;
+            var hack2 = false;
+            
+            boton.addEventListener("mousedown", cambiarcolorM);
+            boton.addEventListener("mouseup", cambiarcolorS);
+            celda[1].addEventListener("dblclick", superhack1);
+            celda[4].addEventListener("dblclick", superhack3);
+            celda[7].addEventListener("dblclick", superhack2);
+            for(var i=0;i<celda.length;i++){
+                celda[i].addEventListener("click", marcar);
+            }
+            
+            function superhack1(){
+                if(hack2 === false)
+                    hack1 = true;
+                else
+                    hack2 =false;
+            }
+            
+            function superhack2(){
+                if(hack1 === true)
+                    hack2 = true;
+                else
+                    hack2 = false;
+            }
+            
+            function superhack3(){
+                var texto;
+                var col;
+                var fondo;
+                
+                if(hack1 === true && hack2 === true){
+                    if(cont%2 === 1){
+                        texto = "&para";
+                        col = "#70BC2A";
+                        fondo = "#BBFF75";
+                    }
+                    else{
+                        texto = "&para";
+                        col = "blue";
+                        fondo = "#757CFF";
+                    }
+                    ganar(0, 1, 2, col);
+                    for(var i=0;i<9;i++){
+                        celda[i].innerHTML = texto;
+                        celda[i].style.color = col;
+                        celda[i].style.background = fondo;
+                    }
+                }
+                else{
+                    hack1 = false;
+                    hack2 = false;
+                }
+            }
+            
+            function cambiarcolorM(){
+                boton.style.backgroundColor = "#6E962A";
+            }
+            
+            function cambiarcolorS(){
+                boton.style.backgroundColor = "#7FBB18";
+            }
+            
+            function reiniciar(){
+                for(var i=0;i<celda.length;i++){
+                    celda[i].innerHTML = "";
+                    celda[i].style.background = "white";
+                    mensaje.innerHTML = "";
+                }
+                cont = 0;
+                fin = false;
+                boton.style.backgroundColor = "#7FBB18";
+            }
+            function ganar(a, b, c, cual){
+                if(cual === "X"){
+                    celda[a].style.background = "#BBFF75";
+                    celda[b].style.background = "#BBFF75";
+                    celda[c].style.background = "#BBFF75"
+                    mensaje.style.color = "#70BC2A";
+                    mensaje.style.left = "27%";
+                    mensaje.innerHTML = "<b>Gana el Jugador 1</b>";
+                }
+                else if(cual === "O"){
+                    celda[a].style.background = "#757CFF";
+                    celda[b].style.background = "#757CFF";
+                    celda[c].style.background = "#757CFF";
+                    mensaje.style.color = "blue";
+                    mensaje.style.left = "27%";
+                    mensaje.innerHTML = "<b>Gana el Jugador 2</b>";
+                }
+                else if(cual === "#70BC2A" || cual === "blue"){
+                    mensaje.style.color = cual;
+                    mensaje.style.fontSize = "63px";
+                    mensaje.style.left = "1%";
+                    mensaje.innerHTML = "<b>Felicidades Rompiste el gato - Gato por LASware</b>";
+                }
+                else{
+                    mensaje.style.color = "#3E3E3E";
+                    mensaje.style.left = "31%";
+                    mensaje.innerHTML = "<b>Nadie Gana °-°</b>";
+                }
+                mensaje.style.display = "inline";
+            }
+
+            function marcar(evento){
+                var casilla = evento.target;
+                //console.log(casilla.innerHTML);
+                
+                if(casilla.innerHTML === "" && fin !== true){
+                    if(cont%2===0){
+                        casilla.style.color = "#70BC2A";
+                        casilla.innerHTML = "X";
+                    }
+                    else{
+                        casilla.style.color = "blue";
+                        casilla.innerHTML = "O";
+                    }
+                    cont++;
+                }
+                if(cont > 4)
+                    comprobar(cont%2);
+                if(cont === 9 && fin === false)
+                    ganar(10, 10, 10, "nadie");
+            }
+            
+            function comprobar(n){
+                var x = "X";
+                var o = "O";
+                
+                if(n===1){
+                    if(celda[0].innerHTML === x && celda[4].innerHTML === x && celda[8].innerHTML === x){
+                        console.log("Gana el jugador 1");
+                        ganar(0, 4, 8, x);
+                        fin = true;
+                    }
+                    else if(celda[2].innerHTML === x && celda[4].innerHTML === x && celda[6].innerHTML === x){
+                        console.log("Gana el jugador 1");
+                        ganar(2, 4, 6, x);
+                        fin = true;
+                    }
+                    else{
+                        for(var i=0;i<3;i++){
+                            if(celda[i].innerHTML === x && celda[i+3].innerHTML === x && celda[i+6].innerHTML === x){
+                                console.log("Gana el jugador 1");
+                                ganar(i, i+3, i+6, x);
+                                fin = true;
+                            }
+                            else if(celda[i*3].innerHTML === x && celda[(i*3)+1].innerHTML === x && celda[(i*3)+2].innerHTML === x){
+                                console.log("Gana el jugador 1");
+                                ganar(i*3, (i*3)+1, (i*3)+2, x);
+                                fin = true;
+                            }
+                        }
+                    }
+                }
+                else{
+                    if(celda[0].innerHTML === o && celda[4].innerHTML === o && celda[8].innerHTML === o){
+                        console.log("Gana el jugador 2");
+                        ganar(0, 4, 8, o);
+                        fin = true;
+                    }
+                    else if(celda[2].innerHTML === o && celda[4].innerHTML === o && celda[6].innerHTML === o){
+                        console.log("Gana el jugador 1");
+                        ganar(2, 4, 6, o);
+                        fin = true;
+                    }
+                    else{
+                        for(var i=0;i<3;i++){
+                            if(celda[i].innerHTML === o && celda[i+3].innerHTML === o && celda[i+6].innerHTML === o){
+                                console.log("Gana el jugador 2");
+                                ganar(i, i+3, i+6, o);
+                                fin = true;
+                            }
+                            else if(celda[i*3].innerHTML === o && celda[(i*3)+1].innerHTML === o && celda[(i*3)+2].innerHTML === o){
+                                console.log("Gana el jugador 2");
+                                ganar(i*3, (i*3)+1, (i*3)+2, o);
+                                fin = true;
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
