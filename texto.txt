@@ -1,5 +1,7 @@
-archivo de texto
+﻿archivo de texto
 más lineas
 hola
 Lineas por Pedro Daniel
-Lineas por Pedro Daniel
+Lineas por Mi
+Más lineas
+Lineas, lineas , lineas
