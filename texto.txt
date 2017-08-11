@@ -1,5 +1,6 @@
-archivo de texto
-más lineas
+Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, 
+archivo de texto más lineas
 hola
 Lineas por Pedro Daniel
-Lineas por Pedro Daniel
+Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi 
+Lineas por Pedro
